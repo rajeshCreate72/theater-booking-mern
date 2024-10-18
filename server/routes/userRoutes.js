@@ -2,6 +2,7 @@ const express = require("express");
 const User = require("../models/userModels");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const AuthMiddleware = require("../middleware/authMiddleware");
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
@@ -65,6 +66,17 @@ router.post("/login", async (req, res) => {
     } catch (error) {
         console.log(error);
     }
+});
+
+router.get("/get-current-user", AuthMiddleware, async (req, res) => {
+    // Giving the authorization to the user
+    const user = await User.findById(req.body.userId).select("-password -isAdmin -_id");
+
+    res.send({
+        success: true,
+        message: "You are authorised",
+        data: user,
+    });
 });
 
 module.exports = router;

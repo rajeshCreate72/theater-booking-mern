@@ -1,3 +1,8 @@
 .ant-form-item-label > label {
-  color: white !important;
+    color: white !important;
+    font-weight: bold;
+}
+
+.left-section {
+    font-size: 30px;
 }
