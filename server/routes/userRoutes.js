@@ -1,9 +1,9 @@
 const express = require("express");
-const User = require("../models/userModels");
+const router = express.Router();
+const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const AuthMiddleware = require("../middleware/authMiddleware");
-const router = express.Router();
 
 router.post("/register", async (req, res) => {
     try {
@@ -26,9 +26,16 @@ router.post("/register", async (req, res) => {
 
         await aUser.save();
 
+        const createdUser = await User.findOne({ email: req.body.email });
+
+        const token = jwt.sign({ userId: createdUser._id }, process.env.JWT_KEY, {
+            expiresIn: "1d",
+        });
+
         res.send({
             success: true,
             message: "User created successfully",
+            token: token,
         });
     } catch (error) {
         console.log(error);

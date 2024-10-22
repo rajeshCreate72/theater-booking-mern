@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Button, Form, Input } from "antd";
 import { LoginUser } from "../../api/users";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +13,7 @@ function Login() {
 
             if (response.success) {
                 localStorage.setItem("token", response.token);
-                navigate("/home");
+                navigate("/");
             } else {
                 console.log(response.message);
             }
@@ -21,14 +22,24 @@ function Login() {
             console.log(error);
         }
     };
+
+    useEffect(() => {
+        if (localStorage.getItem("token")) {
+            navigate("/");
+        }
+    }, []);
     return (
         <header className="App-header">
             <main className="main-area">
                 <section className="left-section">
                     <h1>Login to BookMyShow</h1>
                 </section>
-                <section>
-                    <Form layout="vertical" onFinish={onFinish} style={{ maxWidth: "600px" }}>
+                <section className="form-section">
+                    <Form
+                        layout="vertical"
+                        onFinish={onFinish}
+                        style={{ maxWidth: "1280px", width: "50%" }}
+                    >
                         <Form.Item
                             label="Email"
                             htmlFor="email"
@@ -40,7 +51,7 @@ function Login() {
                                 id="email"
                                 type="text"
                                 placeholder="Enter your email"
-                                style={{ height: "5vh" }}
+                                style={{ height: "50px" }}
                             ></Input>
                         </Form.Item>
                         <Form.Item
@@ -54,7 +65,7 @@ function Login() {
                                 id="password"
                                 type="password"
                                 placeholder="Enter your password"
-                                style={{ height: "5vh" }}
+                                style={{ height: "50px" }}
                             ></Input>
                         </Form.Item>
                         <Form.Item>
@@ -66,7 +77,7 @@ function Login() {
                                     fontSize: "1rem",
                                     fontWeight: "600",
                                     backgroundColor: "#1E345B",
-                                    height: "5vh",
+                                    height: "50px",
                                 }}
                             >
                                 Login

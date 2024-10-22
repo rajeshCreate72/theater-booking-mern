@@ -4,6 +4,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 
 const userRoutes = require("./routes/userRoutes");
+const moviesRoutes = require("./routes/movieRoutes");
 
 const app = express();
 
@@ -23,6 +24,7 @@ mongoose
     });
 
 app.use("/api/users", userRoutes);
+app.use("/api/movies", moviesRoutes);
 
 app.listen(8080, () => {
     console.log("Server is running at 8080");
