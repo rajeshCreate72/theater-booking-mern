@@ -28,9 +28,7 @@ router.post("/register", async (req, res) => {
 
         const createdUser = await User.findOne({ email: req.body.email });
 
-        const token = jwt.sign({ userId: createdUser._id }, process.env.JWT_KEY, {
-            expiresIn: "1d",
-        });
+        const token = jwt.sign({ userId: createdUser._id }, process.env.JWT_KEY);
 
         res.send({
             success: true,
@@ -63,7 +61,7 @@ router.post("/login", async (req, res) => {
             return;
         }
 
-        const token = jwt.sign({ userId: user._id }, process.env.JWT_KEY, { expiresIn: "1d" });
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_KEY);
 
         res.send({
             success: true,
@@ -77,7 +75,7 @@ router.post("/login", async (req, res) => {
 
 router.get("/get-current-user", AuthMiddleware, async (req, res) => {
     // Giving the authorization to the user
-    const user = await User.findById(req.body.userId).select("-password -isAdmin -_id");
+    const user = await User.findById(req.body.userId).select("-password");
 
     res.send({
         success: true,

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { Button, Form, Input } from "antd";
-import { LoginUser } from "../../api/users";
+import { Button, Form, Input, message } from "antd";
+import { GetCurrentUser, LoginUser } from "../../api/users";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
@@ -13,13 +13,16 @@ function Login() {
 
             if (response.success) {
                 localStorage.setItem("token", response.token);
-                navigate("/");
+                message.success("Login success");
+                window.location.href = "/";
             } else {
                 console.log(response.message);
+                message.info(response.message);
             }
             console.log(response);
         } catch (error) {
             console.log(error);
+            message.error("Network error");
         }
     };
 
@@ -28,6 +31,7 @@ function Login() {
             navigate("/");
         }
     }, []);
+
     return (
         <header className="App-header">
             <main className="main-area">

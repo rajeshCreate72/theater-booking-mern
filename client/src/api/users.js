@@ -1,4 +1,3 @@
-import { resolvePath } from "react-router-dom";
 import { axiosInstance } from "./index";
 
 export const LoginUser = async (value) => {
@@ -22,8 +21,9 @@ export const RegisterUser = async (value) => {
 export const GetCurrentUser = async () => {
     try {
         const response = await axiosInstance.get("/api/users/get-current-user");
-        return response;
+        console.log(response?.data?.data);
+        return response.data;
     } catch (error) {
-        throw new Error("Session Expired");
+        return "Session Expired";
     }
 };

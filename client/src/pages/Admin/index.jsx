@@ -1,11 +1,16 @@
 import { Tabs } from "antd";
+import MoviesList from "./MoviesList";
 
 function Admin() {
     const tabItems = [
         {
             key: 1,
             label: "Movies",
-            children: <div>Movies</div>,
+            children: (
+                <div>
+                    <MoviesList />
+                </div>
+            ),
         },
         {
             key: 2,

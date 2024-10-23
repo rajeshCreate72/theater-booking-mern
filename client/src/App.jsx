@@ -3,6 +3,7 @@ import Login from "./pages/Login/Login.jsx";
 import Home from "./pages/Home/Home.jsx";
 import Register from "./pages/Register/Register.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import Profile from "./pages/Profile/index.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Admin from "./pages/Admin/index.jsx";
 
@@ -26,6 +27,14 @@ function App() {
                         element={
                             <ProtectedRoute>
                                 <Admin />
+                            </ProtectedRoute>
+                        }
+                    ></Route>
+                    <Route
+                        path="/profile"
+                        element={
+                            <ProtectedRoute>
+                                <Profile />
                             </ProtectedRoute>
                         }
                     ></Route>
