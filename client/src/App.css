@@ -20,7 +20,7 @@
 }
 
 .ant-tabs-tab-btn {
-    color: white;
+    color: white !important;
 }
 
 .ant-tabs-tab-active {
@@ -35,8 +35,41 @@
     background-color: #1e345b !important;
 }
 
-.custom-dark-table {
-    background-color: #1e2736;
-    color: white;
-    outline: none;
+/* style for ant tables */
+.ant-table-thead > tr > th {
+    background-color: #14233e !important;
+    color: white !important;
+}
+
+.ant-table-tbody > tr > td {
+    background-color: #14233e !important;
+    color: white !important;
+    outline: none !important;
+    border-radius: 0px;
+}
+
+/* page number style for antd */
+.ant-pagination-item {
+    color: white !important;
+}
+
+.ant-pagination-item:hover {
+    background-color: #1e2736 !important;
+    color: white !important;
+}
+
+/* ant modal style for forms */
+.ant-modal-content {
+    background-color: #181e28 !important;
+    color: white !important;
+}
+
+.ant-modal-header {
+    background-color: #181e28 !important;
+    color: white !important;
+}
+
+.ant-modal-footer {
+    background-color: #181e28 !important;
+    color: white !important;
 }

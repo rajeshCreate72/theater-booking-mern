@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { GetAllMovies } from "../../api/movies";
-import { Table } from "antd";
+import { Table, Button } from "antd";
+import MovieForm from "./MovieForm";
 
 function MoviesList() {
     const [movies, setMovies] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const getMovies = async () => {
         const response = await GetAllMovies();
@@ -31,6 +33,10 @@ function MoviesList() {
             dataIndex: "title",
         },
         {
+            title: "Description",
+            dataIndex: "description",
+        },
+        {
             title: "Duration",
             dataIndex: "duration",
         },
@@ -54,15 +60,35 @@ function MoviesList() {
     ];
 
     return (
-        <Table
-            className="custom-dark-table"
-            columns={moviesCols}
-            dataSource={movies}
-            style={{
-                backgroundColor: "#1E2736",
-                color: "white",
-            }}
-        />
+        <>
+            <div>
+                <Button
+                    onClick={() => {
+                        setIsModalOpen(true);
+                    }}
+                    style={{
+                        fontSize: "1rem",
+                        fontWeight: "600",
+                        backgroundColor: "#1E345B",
+                        marginBottom: "10px",
+                        height: "50px",
+                        color: "white",
+                    }}
+                >
+                    Add Movie
+                </Button>
+            </div>
+            {isModalOpen && <MovieForm isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />}
+            <Table
+                className="custom-dark-table"
+                columns={moviesCols}
+                dataSource={movies}
+                style={{
+                    backgroundColor: "#1E2736",
+                    color: "white",
+                }}
+            />
+        </>
     );
 }
 
