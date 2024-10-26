@@ -9,7 +9,7 @@ const moviesSchema = new mongoose.Schema({
         type: String,
         require: true,
     },
-    duriation: {
+    duration: {
         type: Number,
         require: true,
     },

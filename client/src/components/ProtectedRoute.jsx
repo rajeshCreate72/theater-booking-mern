@@ -17,6 +17,7 @@ function ProtectedRoute({ children }) {
                     onClick={() => {
                         navigate("/");
                     }}
+                    style={{ width: "100%", height: "100%" }}
                 >
                     Home
                 </span>
@@ -35,6 +36,7 @@ function ProtectedRoute({ children }) {
                             onClick={() => {
                                 user.isAdmin ? navigate("/admin") : navigate("/profile");
                             }}
+                            style={{ width: "100%", height: "100%" }}
                         >
                             My Profile
                         </span>
@@ -63,10 +65,16 @@ function ProtectedRoute({ children }) {
     const getValidUser = async () => {
         try {
             const response = await GetCurrentUser();
-            console.log(response.data);
-            setUser(response.data);
+            console.log(response);
+            if (response === "Request failed with status code 401") {
+                localStorage.removeItem("token");
+                navigate("/login");
+                message.info("Session Expired. Please Login");
+            } else {
+                setUser(response.data);
+            }
         } catch (error) {
-            console.error(error.message);
+            console.log(error);
         }
     };
 
@@ -106,6 +114,7 @@ function ProtectedRoute({ children }) {
                             flexDirection: "row",
                             color: "white",
                         }}
+                        triggerSubMenuAction="click"
                     />
                 </Header>
                 <div style={{ backgroundColor: "#1E2736" }}>{children}</div>

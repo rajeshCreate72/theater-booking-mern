@@ -34,3 +34,9 @@
 .ant-tabs-ink-bar {
     background-color: #1e345b !important;
 }
+
+.custom-dark-table {
+    background-color: #1e2736;
+    color: white;
+    outline: none;
+}

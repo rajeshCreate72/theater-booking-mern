@@ -21,9 +21,8 @@ export const RegisterUser = async (value) => {
 export const GetCurrentUser = async () => {
     try {
         const response = await axiosInstance.get("/api/users/get-current-user");
-        console.log(response?.data?.data);
         return response.data;
     } catch (error) {
-        return "Session Expired";
+        return error.message;
     }
 };

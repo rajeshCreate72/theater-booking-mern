@@ -75,13 +75,20 @@ router.post("/login", async (req, res) => {
 
 router.get("/get-current-user", AuthMiddleware, async (req, res) => {
     // Giving the authorization to the user
-    const user = await User.findById(req.body.userId).select("-password");
+    try {
+        const user = await User.findById(req.body.userId).select("-password");
 
-    res.send({
-        success: true,
-        message: "You are authorised",
-        data: user,
-    });
+        res.send({
+            success: true,
+            message: "You are authorised",
+            data: user,
+        });
+    } catch (error) {
+        res.send({
+            success: false,
+            message: "Session Expired",
+        });
+    }
 });
 
 module.exports = router;

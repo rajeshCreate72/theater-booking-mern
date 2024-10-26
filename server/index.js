@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 
 const userRoutes = require("./routes/userRoutes");
 const moviesRoutes = require("./routes/movieRoutes");
+const theaterRoutes = require("./routes/theaterRoutes");
+const showsRoutes = require("./routes/showsRoutes");
 
 const app = express();
 
@@ -25,6 +27,8 @@ mongoose
 
 app.use("/api/users", userRoutes);
 app.use("/api/movies", moviesRoutes);
+app.use("/api/theaters", theaterRoutes);
+app.use("/api/shows", showsRoutes);
 
 app.listen(8080, () => {
     console.log("Server is running at 8080");
