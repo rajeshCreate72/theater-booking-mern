@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { message, Layout, Menu } from "antd";
 import { HomeOutlined, UserOutlined, ProfileOutlined, LogoutOutlined } from "@ant-design/icons";
 import { Header } from "antd/es/layout/layout";
+import moment from "moment";
 
 function ProtectedRoute({ children }) {
     const [user, setUser] = useState(null);
@@ -65,7 +66,6 @@ function ProtectedRoute({ children }) {
     const getValidUser = async () => {
         try {
             const response = await GetCurrentUser();
-            console.log(response);
             if (response === "Request failed with status code 401") {
                 localStorage.removeItem("token");
                 navigate("/login");
@@ -89,19 +89,25 @@ function ProtectedRoute({ children }) {
 
     return (
         <>
-            <Layout>
+            <Layout
+                style={{
+                    overflow: "none",
+                }}
+            >
                 <Header
                     style={{
                         position: "sticky",
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "center",
+                        top: "0",
+                        zIndex: 3,
                     }}
                 >
                     <h3
                         style={{ color: "white", margin: "0", cursor: "pointer" }}
                         onClick={() => {
-                            navigate("/");
+                            navigate(`/movie/${movie._id}?date=${moment().format("YYYY-MM-DD")}`);
                         }}
                     >
                         Book my show
@@ -117,7 +123,15 @@ function ProtectedRoute({ children }) {
                         triggerSubMenuAction="click"
                     />
                 </Header>
-                <div style={{ backgroundColor: "#1E2736" }}>{children}</div>
+                <div
+                    style={{
+                        backgroundColor: "#1E2736",
+                        overflow: "hidden",
+                        padding: "3rem",
+                    }}
+                >
+                    {children}
+                </div>
             </Layout>
         </>
     );

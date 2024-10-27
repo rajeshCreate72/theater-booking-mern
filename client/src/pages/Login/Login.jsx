@@ -39,11 +39,7 @@ function Login() {
                     <h1>Login to BookMyShow</h1>
                 </section>
                 <section className="form-section">
-                    <Form
-                        layout="vertical"
-                        onFinish={onFinish}
-                        style={{ maxWidth: "1280px", width: "50%" }}
-                    >
+                    <Form layout="vertical" onFinish={onFinish} style={{ width: "50%" }}>
                         <Form.Item
                             label="Email"
                             htmlFor="email"
