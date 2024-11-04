@@ -110,7 +110,7 @@ function ProtectedRoute({ children }) {
                             navigate(`/movie/${movie._id}?date=${moment().format("YYYY-MM-DD")}`);
                         }}
                     >
-                        Book my show
+                        Ticket Booking website
                     </h3>
                     <Menu
                         items={navItems}

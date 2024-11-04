@@ -18,6 +18,7 @@ function MovieForm({ isModalOpen, setIsModalOpen }) {
                 color: "white",
                 width: "60%",
             }}
+            footer={null}
         >
             <Form layout="vertical" style={{ width: "100%" }} onFinish={onFinish}>
                 <Row
@@ -95,13 +96,12 @@ function MovieForm({ isModalOpen, setIsModalOpen }) {
                                     style={{ color: "white" }}
                                 >
                                     <Select
+                                        className="select-tag"
                                         id="language"
                                         defaultValue="Select language"
                                         style={{
                                             width: "100%",
                                             heigth: "45px",
-                                            backgroundColor: "#1E345B",
-                                            color: "white",
                                         }}
                                         options={[
                                             { value: "English", label: "English" },

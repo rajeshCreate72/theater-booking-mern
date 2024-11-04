@@ -78,7 +78,7 @@ router.get("/movie/:id", async (req, res) => {
 
         res.send({
             success: true,
-            message: "All movies",
+            message: `${theMovie.title} has been sent`,
             data: theMovie,
         });
     } catch (error) {

@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Show = require("../models/showModel");
 
+//api for adding show
 router.post("/add-show", async (req, res) => {
     try {
         const anotherShow = new Show(req.body);
