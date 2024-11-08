@@ -1,0 +1,21 @@
+.movie-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.movie-details-image {
+    object-fit: contain;
+    margin: 2rem;
+}
+
+.movie-details-info {
+    margin: 2rem;
+}
+
+.bookings-style {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 2rem;
+}

@@ -54,4 +54,35 @@ router.put("/update-show", async (req, res) => {
     }
 });
 
+//Getting all theaters by movie
+router.post("/get-all-theaters-by-movie", async (req, res) => {
+    try {
+        const { movie, date } = req.body;
+        const shows = new Show.find({ movie, date }).populate("theaters");
+
+        const uniqueTheaters = [];
+
+        shows.forEach((show) => {
+            let isTheater = uniqueTheaters.find((theater) => theater._id == show.theaters._id);
+            if (!isTheater) {
+                let showOfThatTheater = shows.filter(
+                    (showObj) => show.theaters._id == showObj.theaters._id
+                );
+                uniqueTheaters.push({ ...show.theaters._doc, shows: showOfThatTheater });
+            }
+        });
+
+        res.send({
+            success: true,
+            message: `${shows.theaters.name} shows been fetched`,
+            data: uniqueTheaters,
+        });
+    } catch (error) {
+        res.send({
+            success: false,
+            message: error.message,
+        });
+    }
+});
+
 module.exports = router;

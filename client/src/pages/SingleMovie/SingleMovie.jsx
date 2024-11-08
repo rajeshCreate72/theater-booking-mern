@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { GetMovieByID } from "../../api/movies";
-import moment from "moment";
 import { Input, Button } from "antd";
+import moment from "moment";
+import "./main.css";
 
 function SingleMovie() {
     const [movie, setMovie] = useState(null);
@@ -32,14 +33,23 @@ function SingleMovie() {
     useEffect(() => {
         getData();
     }, []);
+
+    const getAllShows = async () => {};
+
     return (
         <div>
             {movie && (
-                <div>
-                    <div>
-                        <img src={movie.poster} alt="movie_poster" width={300} height={400} />
+                <div className="movie-details">
+                    <div className="movie-details-image">
+                        <img
+                            src={movie.poster}
+                            alt="movie_poster"
+                            width={200}
+                            height={240}
+                            style={{ borderRadius: "10px" }}
+                        />
                     </div>
-                    <div>
+                    <div className="movie-details-info">
                         <h1>
                             <span>{movie.title}</span>
                         </h1>
@@ -57,7 +67,7 @@ function SingleMovie() {
                             Duration: <span>{movie.duration}</span>
                         </p>
                     </div>
-                    <div>
+                    <div className="bookings-style">
                         <label htmlFor="date">Choose the Date: </label>
                         <Input
                             onChange={handleData}
@@ -65,19 +75,19 @@ function SingleMovie() {
                             value={date}
                             style={{
                                 color: "white",
-                                width: "10%",
+                                width: "200px",
                             }}
                         ></Input>
+                        <span>
+                            <Button
+                                style={{
+                                    marginTop: "1rem",
+                                }}
+                            >
+                                Book a show
+                            </Button>
+                        </span>
                     </div>
-                    <span>
-                        <Button
-                            style={{
-                                marginTop: "1rem",
-                            }}
-                        >
-                            Book a show
-                        </Button>
-                    </span>
                 </div>
             )}
         </div>
