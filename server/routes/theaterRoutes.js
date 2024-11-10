@@ -70,21 +70,4 @@ router.put("/update-theater", async (req, res) => {
     }
 });
 
-router.get("/get-all-theaters", async (req, res) => {
-    try {
-        const allTheaters = await Theater.find({ owner: req.body.owner });
-
-        res.send({
-            success: true,
-            message: "All theaters",
-            data: allTheaters,
-        });
-    } catch (error) {
-        res.send({
-            success: false,
-            message: error.message,
-        });
-    }
-});
-
 module.exports = router;

@@ -1,11 +1,11 @@
-import { Modal, Form, Row, Col, Input, Select, Button } from "antd";
+import { Modal, Form, Row, Col, Input, Select, Button, message } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { addMovie } from "../../api/movies";
 
 function MovieForm({ isModalOpen, setIsModalOpen }) {
     const onFinish = async (values) => {
         const response = await addMovie(values);
-        console.log(response);
+        message.info("Movie has been added");
     };
     const handleCancel = () => {
         setIsModalOpen(false);

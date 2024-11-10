@@ -1,5 +1,6 @@
 import { Tabs } from "antd";
 import MoviesList from "./MoviesList";
+import TheatersList from "./TheatersLlist";
 
 function Admin() {
     const tabItems = [
@@ -15,7 +16,7 @@ function Admin() {
         {
             key: 2,
             label: "Theaters",
-            children: <div>Theaters</div>,
+            children: <TheatersList />,
         },
     ];
     return (

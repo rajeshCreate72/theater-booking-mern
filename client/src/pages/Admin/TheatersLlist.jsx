@@ -1,49 +1,91 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { GetAllTheaters } from "../../api/theaters";
+import { Table, Button } from "antd";
+import TheaterForm from "./TheaterForm";
 
-function TheatersLlist() {
+function TheatersList() {
+    const [theatersList, setTheatersList] = useState([]);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const fetchAllTheaters = async () => {
+        const response = await GetAllTheaters();
+        const allTheaters = response.data;
+        const mapTheatersToRender = allTheaters.map((theater) => {
+            return {
+                ...theater,
+                key: `theater${theater._id}`,
+            };
+        });
+        console.log(mapTheatersToRender);
+        setTheatersList(mapTheatersToRender);
+    };
+
+    useEffect(() => {
+        fetchAllTheaters();
+    }, []);
+
     const theaterCols = [
         {
-            title: "Poster",
-            dataIndex: "poster",
-            render: (text, data) => {
-                return <img src={data.poster} width="100" height="115" />;
-            },
+            title: "Theater Name",
+            dataIndex: "name",
         },
         {
-            title: "Movie name",
-            dataIndex: "title",
+            title: "Address",
+            dataIndex: "address",
         },
         {
-            title: "Description",
-            dataIndex: "description",
+            title: "Phone Number",
+            dataIndex: "phone",
         },
         {
-            title: "Duration",
-            dataIndex: "duration",
+            title: "Email",
+            dataIndex: "email",
         },
         {
-            title: "Genre",
-            dataIndex: "genre",
-        },
-        {
-            title: "Release Date",
-            dataIndex: "releaseDate",
+            title: "Status",
             render: (text) => {
-                let dateToFormat = new Date(text);
-                const formatDate = dateToFormat.toDateString();
-                return <span>{formatDate}</span>;
+                if (text.isActive) {
+                    return <h3 style={{ color: "green" }}>Active</h3>;
+                } else {
+                    return <h3 style={{ color: "red" }}>Not Active</h3>;
+                }
             },
-        },
-        {
-            title: "Language",
-            dataIndex: "language",
         },
     ];
     return (
         <div>
-            <Table></Table>
+            <div>
+                <Button
+                    onClick={() => {
+                        setIsModalOpen(true);
+                    }}
+                    style={{
+                        fontSize: "1rem",
+                        fontWeight: "600",
+                        backgroundColor: "#1E345B",
+                        marginBottom: "10px",
+                        height: "50px",
+                        color: "white",
+                    }}
+                >
+                    Add Theater
+                </Button>
+            </div>
+            {isModalOpen && (
+                <TheaterForm isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+            )}
+            <Table
+                className="custom-dark-table"
+                columns={theaterCols}
+                dataSource={theatersList}
+                style={{
+                    backgroundColor: "#1E2736",
+                    color: "white",
+                }}
+            />
         </div>
     );
 }
 
-export default TheatersLlist;
+export default TheatersList;
