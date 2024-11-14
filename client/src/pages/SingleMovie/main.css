@@ -19,3 +19,15 @@
     justify-content: center;
     margin: 2rem;
 }
+
+.shows-ul {
+    list-style: none;
+}
+
+.shows-li {
+    border: 2px solid white;
+    width: 10%;
+    padding: 2px;
+    margin: 2px;
+    cursor: pointer;
+}

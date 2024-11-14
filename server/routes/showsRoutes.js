@@ -18,10 +18,27 @@ router.post("/add-show", async (req, res) => {
     }
 });
 
+router.post("/get-show-by-id", async (req, res) => {
+    try {
+        const show = await Show.findById(req.body.showId).populate("movie").populate("theaters");
+
+        res.send({
+            success: true,
+            message: "Show has been fetched",
+            data: show,
+        });
+    } catch (error) {
+        res.send({
+            success: false,
+            message: error.message,
+        });
+    }
+});
+
 // Getting movie by theater
 router.post("/get-all-shows-by-theater", async (req, res) => {
     try {
-        const anotherShow = new Show.find({ theater: req.body.theaterId }).populate("movie");
+        const anotherShow = await Show.find({ theaters: req.body.theaterId }).populate("movie");
         res.send({
             success: true,
             message: `${anotherShow.movie} show been fetched`,
@@ -40,8 +57,6 @@ router.put("/update-show", async (req, res) => {
     try {
         await Show.findByIdAndUpdate(req.body.showId, req.body);
 
-        const show = await Show.findById(req.body.showId);
-
         res.send({
             success: true,
             message: "The show has been updated",
@@ -58,13 +73,16 @@ router.put("/update-show", async (req, res) => {
 router.post("/get-all-theaters-by-movie", async (req, res) => {
     try {
         const { movie, date } = req.body;
-        const shows = new Show.find({ movie, date }).populate("theaters");
+        const shows = await Show.find({ movie, date }).populate("theaters");
 
         const uniqueTheaters = [];
 
         shows.forEach((show) => {
+            // Check if the theater is in unique theater array
             let isTheater = uniqueTheaters.find((theater) => theater._id == show.theaters._id);
             if (!isTheater) {
+                // If not
+                // Then add the theater that matches the
                 let showOfThatTheater = shows.filter(
                     (showObj) => show.theaters._id == showObj.theaters._id
                 );
@@ -74,10 +92,11 @@ router.post("/get-all-theaters-by-movie", async (req, res) => {
 
         res.send({
             success: true,
-            message: `${shows.theaters.name} shows been fetched`,
+            message: "Shows been fetched according to movie",
             data: uniqueTheaters,
         });
     } catch (error) {
+        console.log(error);
         res.send({
             success: false,
             message: error.message,

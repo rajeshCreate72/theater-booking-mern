@@ -1,12 +1,13 @@
 import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login/Login.jsx";
 import Home from "./pages/Home/Home.jsx";
 import Register from "./pages/Register/Register.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import Profile from "./pages/Profile/index.jsx";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Admin from "./pages/Admin/index.jsx";
 import SingleMovie from "./pages/SingleMovie/SingleMovie.jsx";
+import BookShow from "./pages/BookShow/BookShow.jsx";
 
 function App() {
     return (
@@ -44,6 +45,14 @@ function App() {
                         element={
                             <ProtectedRoute>
                                 <Profile />
+                            </ProtectedRoute>
+                        }
+                    ></Route>
+                    <Route
+                        path="/book-show/:id"
+                        element={
+                            <ProtectedRoute>
+                                <BookShow />
                             </ProtectedRoute>
                         }
                     ></Route>

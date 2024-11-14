@@ -5,7 +5,7 @@ import TheaterForm from "./TheaterForm";
 
 function TheatersList() {
     const [theatersList, setTheatersList] = useState([]);
-
+    const [user, setUser] = useState({});
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const fetchAllTheaters = async () => {
@@ -21,8 +21,18 @@ function TheatersList() {
         setTheatersList(mapTheatersToRender);
     };
 
+    const fetchUserData = async () => {
+        try {
+            const response = await GetCurrentUser();
+            setUser(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     useEffect(() => {
         fetchAllTheaters();
+        fetchUserData();
     }, []);
 
     const theaterCols = [
@@ -56,21 +66,23 @@ function TheatersList() {
     return (
         <div>
             <div>
-                <Button
-                    onClick={() => {
-                        setIsModalOpen(true);
-                    }}
-                    style={{
-                        fontSize: "1rem",
-                        fontWeight: "600",
-                        backgroundColor: "#1E345B",
-                        marginBottom: "10px",
-                        height: "50px",
-                        color: "white",
-                    }}
-                >
-                    Add Theater
-                </Button>
+                {user.isAdmin && (
+                    <Button
+                        onClick={() => {
+                            setIsModalOpen(true);
+                        }}
+                        style={{
+                            fontSize: "1rem",
+                            fontWeight: "600",
+                            backgroundColor: "#1E345B",
+                            marginBottom: "10px",
+                            height: "50px",
+                            color: "white",
+                        }}
+                    >
+                        Add Theater
+                    </Button>
+                )}
             </div>
             {isModalOpen && (
                 <TheaterForm isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />

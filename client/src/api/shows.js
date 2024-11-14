@@ -9,11 +9,20 @@ export const GetAllMovies = async () => {
     }
 };
 
-export const GetAllShowsOfTheater = async (values) => {
+export const GetAllShowsByMovie = async (values) => {
     try {
-        const response = await axiosInstance.get("/api/shows/get-all-theaters-by-movie", values);
+        const response = await axiosInstance.post("/api/shows/get-all-theaters-by-movie", values);
         return response.data;
     } catch (error) {
         return error.response;
+    }
+};
+
+export const GetShowById = async (id) => {
+    try {
+        const response = await axiosInstance.post("/api/shows/get-show-by-id", id);
+        return response.data;
+    } catch (error) {
+        return error.message;
     }
 };

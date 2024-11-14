@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { GetMovieByID } from "../../api/movies";
-import { Input, Button } from "antd";
+import { Input, Button, message, Row, Col } from "antd";
+import { GetAllShowsByMovie } from "../../api/shows";
 import moment from "moment";
 import "./main.css";
 
 function SingleMovie() {
     const [movie, setMovie] = useState(null);
+    const [theaters, setTheaters] = useState([]);
     const [date, setDate] = useState(moment().format("YYYY-MM-DD"));
     const navigate = useNavigate();
     const params = useParams();
@@ -14,7 +16,6 @@ function SingleMovie() {
     const getData = async () => {
         try {
             const response = await GetMovieByID(params.id);
-            console.log(response);
             if (response.success) {
                 setMovie(response.data);
             } else {
@@ -34,7 +35,23 @@ function SingleMovie() {
         getData();
     }, []);
 
-    const getAllShows = async () => {};
+    const getAllTheaters = async () => {
+        try {
+            const response = await GetAllShowsByMovie({ movie: params.id, date });
+            if (response.success) {
+                setTheaters(response.data);
+            } else {
+                console.log(response);
+                message.error("Shows not found on this date");
+            }
+        } catch (error) {
+            message.error(error.message);
+        }
+    };
+
+    useEffect(() => {
+        getAllTheaters();
+    }, [date]);
 
     return (
         <div>
@@ -78,18 +95,54 @@ function SingleMovie() {
                                 width: "200px",
                             }}
                         ></Input>
-                        <span>
-                            <Button
-                                style={{
-                                    marginTop: "1rem",
-                                }}
-                            >
-                                Book a show
-                            </Button>
-                        </span>
                     </div>
                 </div>
             )}
+            <div>
+                {theaters.length > 0 && (
+                    <div>
+                        <h2>Theaters</h2>
+                        {theaters.map((theater) => {
+                            return (
+                                <div key={theater._id}>
+                                    <Row gutter={24} key={theater._id}>
+                                        <Col xs={{ span: 24 }} lg={{ span: 8 }}>
+                                            <h3>{theater.name}</h3>
+                                            <p>{theater.address}</p>
+                                        </Col>
+                                        <Col xs={{ span: 24 }} lg={{ span: 16 }}>
+                                            <ul className="shows-ul">
+                                                {/* sorting the show */}
+                                                {theater.shows
+                                                    .sort((a, b) => {
+                                                        moment(a.time, "HH:mm") -
+                                                            moment(b.time, "HH:mm");
+                                                    })
+                                                    // mapping the shows
+                                                    .map((show) => {
+                                                        return (
+                                                            <li
+                                                                key={show._id}
+                                                                onClick={() => {
+                                                                    navigate(
+                                                                        `/book-show/${show._id}`
+                                                                    );
+                                                                }}
+                                                                className="shows-li"
+                                                            >
+                                                                {show.time}
+                                                            </li>
+                                                        );
+                                                    })}
+                                            </ul>
+                                        </Col>
+                                    </Row>
+                                </div>
+                            );
+                        })}
+                    </div>
+                )}
+            </div>
         </div>
     );
 }
