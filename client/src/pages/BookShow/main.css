@@ -1,0 +1,7 @@
+.seat-list-style {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding-left: 0;
+}

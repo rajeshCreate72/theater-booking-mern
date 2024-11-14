@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { GetMovieByID } from "../../api/movies";
-import { Input, Button, message, Row, Col } from "antd";
+import { Input, message, Row, Col } from "antd";
 import { GetAllShowsByMovie } from "../../api/shows";
 import moment from "moment";
+import process from "process";
 import "./main.css";
 
 function SingleMovie() {
@@ -32,6 +33,7 @@ function SingleMovie() {
     };
 
     useEffect(() => {
+        console.log(process.env);
         getData();
     }, []);
 

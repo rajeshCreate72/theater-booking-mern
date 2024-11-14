@@ -1,14 +1,5 @@
 import { axiosInstance } from "./index";
 
-export const GetAllMovies = async () => {
-    try {
-        const response = await axiosInstance.get("/api/movies/get-all-movies");
-        return response.data;
-    } catch (error) {
-        return error.response;
-    }
-};
-
 export const GetAllShowsByMovie = async (values) => {
     try {
         const response = await axiosInstance.post("/api/shows/get-all-theaters-by-movie", values);
@@ -18,9 +9,9 @@ export const GetAllShowsByMovie = async (values) => {
     }
 };
 
-export const GetShowById = async (id) => {
+export const GetShowById = async (payload) => {
     try {
-        const response = await axiosInstance.post("/api/shows/get-show-by-id", id);
+        const response = await axiosInstance.post("/api/shows/get-show-by-id", payload);
         return response.data;
     } catch (error) {
         return error.message;
