@@ -12,12 +12,9 @@ const Bookings = () => {
             const response = await getAllBookings();
             if (response.success) {
                 setBookings(response.data);
-                console.log(response.data);
-            } else {
-                message.error(response.message);
             }
-        } catch (err) {
-            message.error(err.message);
+        } catch (error) {
+            message.error(error.message);
         }
     };
 
@@ -87,7 +84,19 @@ const Bookings = () => {
                 <div className="text-center pt-3">
                     <h1>You've not booked any show yet!</h1>
                     <Link to="/">
-                        <Button type="primary">Start Booking</Button>
+                        <Button
+                            style={{
+                                color: "white",
+                                fontSize: "1rem",
+                                fontWeight: "600",
+                                backgroundColor: "#1E345B",
+                                height: "50px",
+                                marginTop: "10px",
+                                width: "20%",
+                            }}
+                        >
+                            Start Booking
+                        </Button>
                     </Link>
                 </div>
             )}
