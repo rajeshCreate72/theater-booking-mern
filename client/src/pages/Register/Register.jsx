@@ -7,7 +7,7 @@ function Register() {
         <header className="App-header">
             <main className="main-area">
                 <section className="left-section">
-                    <h1>Register to BookMyShow</h1>
+                    <h1>Register to ticket-booking-app</h1>
                 </section>
                 <section className="form-section">
                     <Form layout="vertical" style={{ maxWidth: "600px", width: "50%" }}>
@@ -70,6 +70,12 @@ function Register() {
                         </Form.Item>
                     </Form>
                 </section>
+                <div>
+                    <h4>Already registered?</h4>
+                    <span>
+                        <Link to="/login">Login</Link>
+                    </span>
+                </div>
             </main>
         </header>
     );

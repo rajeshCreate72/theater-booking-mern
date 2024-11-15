@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Button, Form, Input, message } from "antd";
 import { GetCurrentUser, LoginUser } from "../../api/users";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./Login.css";
 
 function Login() {
@@ -36,7 +36,7 @@ function Login() {
         <header className="App-header">
             <main className="main-area">
                 <section className="left-section">
-                    <h1>Login to BookMyShow</h1>
+                    <h1>Login to ticket-booking-app</h1>
                 </section>
                 <section className="form-section">
                     <Form layout="vertical" onFinish={onFinish} style={{ width: "50%" }}>
@@ -85,6 +85,12 @@ function Login() {
                         </Form.Item>
                     </Form>
                 </section>
+                <div>
+                    <h4>Not regitered?</h4>
+                    <span>
+                        <Link to="/register">Register</Link>
+                    </span>
+                </div>
             </main>
         </header>
     );
