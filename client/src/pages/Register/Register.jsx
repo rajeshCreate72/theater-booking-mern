@@ -71,7 +71,7 @@ function Register() {
                     </Form>
                 </section>
                 <div>
-                    <h4>Already registered?</h4>
+                    <h4>Already registered?x`</h4>
                     <span>
                         <Link to="/login">Login</Link>
                     </span>
