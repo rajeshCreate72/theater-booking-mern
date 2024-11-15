@@ -14,9 +14,13 @@ app.use(express.json());
 
 dotenv.config();
 
+app.options("*", cors()); // Enable CORS preflight for all routes
+
 app.use(
     cors({
-        origin: ["https://theater-booking-mern-client.vercel.app", "http://localhost:5173"],
+        origin: ["https://theater-booking-mern-client.vercel.app"],
+        methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed methods
+        allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
         credentials: true,
     })
 );
