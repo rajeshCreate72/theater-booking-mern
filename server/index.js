@@ -22,7 +22,7 @@ app.options("*", cors()); // Enable CORS preflight for all routes
 
 app.use(
     cors({
-        origin: ["https://theater-booking-mern-client.vercel.app"],
+        origin: ["https://theater-booking-mern-client.vercel.app/"],
         methods: ["GET", "POST", "PUT", "DELETE"],
         allowedHeaders: ["Content-Type", "Authorization"],
         credentials: true,
