@@ -12,6 +12,8 @@ const app = express();
 
 app.use(express.json());
 
+dotenv.config();
+
 app.use(
     cors({
         origin: ["https://theater-booking-mern-client.vercel.app", "http://localhost:5173"],
@@ -19,7 +21,9 @@ app.use(
     })
 );
 
-dotenv.config();
+app.use("/", (req, res) => {
+    res.send("<h1>Hello</h1>");
+});
 
 mongoose
     .connect(process.env.DB_URI)
