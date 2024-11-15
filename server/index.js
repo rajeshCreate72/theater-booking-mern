@@ -14,19 +14,24 @@ app.use(express.json());
 
 dotenv.config();
 
+app.use("/", (req, res) => {
+    res.send("<h1>Hello</h1>");
+});
+
 app.options("*", cors()); // Enable CORS preflight for all routes
 
 app.use(
     cors({
         origin: ["https://theater-booking-mern-client.vercel.app"],
-        methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed methods
-        allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        allowedHeaders: ["Content-Type", "Authorization"],
         credentials: true,
     })
 );
 
-app.use("/", (req, res) => {
-    res.send("<h1>Hello</h1>");
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Credentials", true);
+    next();
 });
 
 mongoose
