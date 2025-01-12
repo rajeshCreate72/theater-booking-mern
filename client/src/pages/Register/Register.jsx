@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Form, Input } from "antd";
+import { Link } from "react-router-dom";
 import "./Register.css";
 
 function Register() {
@@ -7,7 +8,7 @@ function Register() {
         <header className="App-header">
             <main className="main-area">
                 <section className="left-section">
-                    <h1>Register to ticket-booking-app</h1>
+                    <h1>Register</h1>
                 </section>
                 <section className="form-section">
                     <Form layout="vertical" style={{ maxWidth: "600px", width: "50%" }}>
@@ -22,7 +23,7 @@ function Register() {
                                 id="name"
                                 type="text"
                                 placeholder="Enter your name"
-                                style={{ height: "50px" }}
+                                style={{ height: "50px", color: "white" }}
                             ></Input>
                         </Form.Item>
                         <Form.Item
@@ -36,7 +37,7 @@ function Register() {
                                 id="email"
                                 type="text"
                                 placeholder="Enter your email"
-                                style={{ height: "50px" }}
+                                style={{ height: "50px", color: "white" }}
                             ></Input>
                         </Form.Item>
                         <Form.Item
@@ -50,7 +51,7 @@ function Register() {
                                 id="password"
                                 type="password"
                                 placeholder="Enter your password"
-                                style={{ height: "50px" }}
+                                style={{ height: "50px", color: "white" }}
                             ></Input>
                         </Form.Item>
                         <Form.Item>
@@ -71,7 +72,7 @@ function Register() {
                     </Form>
                 </section>
                 <div>
-                    <h4>Already registered?x`</h4>
+                    <h4>Already registered?</h4>
                     <span>
                         <Link to="/login">Login</Link>
                     </span>

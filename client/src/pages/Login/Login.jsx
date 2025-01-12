@@ -17,11 +17,10 @@ function Login() {
                 window.location.href = "/";
             } else {
                 console.log(response.message);
-                message.info(response.message);
+                message.info(response.message != null ? response.message : "");
             }
             console.log(response);
         } catch (error) {
-            console.log(error);
             message.error("Network error");
         }
     };
@@ -36,7 +35,7 @@ function Login() {
         <header className="App-header">
             <main className="main-area">
                 <section className="left-section">
-                    <h1>Login to ticket-booking-app</h1>
+                    <h1>Login</h1>
                 </section>
                 <section className="form-section">
                     <Form layout="vertical" onFinish={onFinish} style={{ width: "50%" }}>
@@ -51,7 +50,7 @@ function Login() {
                                 id="email"
                                 type="text"
                                 placeholder="Enter your email"
-                                style={{ height: "50px" }}
+                                style={{ height: "50px", color: "white" }}
                             ></Input>
                         </Form.Item>
                         <Form.Item
@@ -65,7 +64,7 @@ function Login() {
                                 id="password"
                                 type="password"
                                 placeholder="Enter your password"
-                                style={{ height: "50px" }}
+                                style={{ height: "50px", color: "white" }}
                             ></Input>
                         </Form.Item>
                         <Form.Item>
