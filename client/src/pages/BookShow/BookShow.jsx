@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Card, Row, Col, Button } from "antd";
 import { GetShowById } from "../../api/shows";
+import { bookShow, makePayment } from "../../api/bookings";
 import StripeCheckout from "react-stripe-checkout";
 import moment from "moment";
 import "./main.css";
@@ -65,10 +66,7 @@ function BookShow() {
                                                         })
                                                     );
                                                 } else {
-                                                    setSelectedSeats([
-                                                        ...selectedSeats,
-                                                        seatNumber,
-                                                    ]);
+                                                    setSelectedSeats([...selectedSeats, seatNumber]);
                                                 }
                                             }}
                                         >
@@ -113,10 +111,7 @@ function BookShow() {
 
     const onToken = async (token) => {
         try {
-            const response = await makePayment(
-                token,
-                selectedSeats.length * show.ticketPrice * 100
-            );
+            const response = await makePayment(token, selectedSeats.length * show.ticketPrice * 100);
             if (response.success) {
                 message.success(response.message);
                 book(response.data);
