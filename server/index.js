@@ -27,7 +27,7 @@ app.use(express.json());
 
 app.use(
     cors({
-        origin: "https://theater-booking-mern-client.vercel.app/",
+        origin: ["https://theater-booking-mern-client.vercel.app", "http://localhost:5173"],
         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         allowedHeaders: ["Content-Type", "Authorization"],
         credentials: true,
