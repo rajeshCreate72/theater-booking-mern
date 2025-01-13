@@ -18,19 +18,18 @@ app.use("/", (req, res) => {
 
 app.use(express.json());
 
-app.use(cors());
+// app.use(cors());
 
 app.options("*", cors());
 
-// Use CORS middleware with options
-// app.use(
-//     cors({
-//         origin: "http://localhost:5173", // Allow requests from this origin
-//         methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
-//         allowedHeaders: ["Content-Type", "Authorization"],
-//         credentials: true, // Allow credentials like cookies, headers
-//     })
-// );
+app.use(
+    cors({
+        origin: "https://theater-booking-mern-client.vercel.app/", // Allow requests from this origin
+        methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
+        allowedHeaders: ["Content-Type", "Authorization"],
+        credentials: true, // Allow credentials like cookies, headers
+    })
+);
 
 mongoose
     .connect(process.env.DB_URI)
