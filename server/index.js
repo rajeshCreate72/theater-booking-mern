@@ -48,6 +48,11 @@ app.use("/api/theaters", theaterRoutes);
 app.use("/api/shows", showsRoutes);
 app.use("/api/bookings", bookingRoutes);
 
-app.listen(8080, () => {
-    console.log("Server is running at 8080");
-});
+const PORT = process.env.PORT || 8080;
+if (process.env.NODE_ENV !== "production") {
+    app.listen(PORT, () => {
+        console.log("Server is running at 8080");
+    });
+}
+
+module.exports = app;
