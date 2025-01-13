@@ -9,19 +9,10 @@ const theaterRoutes = require("./routes/theaterRoutes");
 const showsRoutes = require("./routes/showsRoutes");
 const bookingRoutes = require("./routes/bookingRoute");
 
-const app = express();
-
 dotenv.config();
 
-// app.use("/", (req, res) => {
-//     res.send("<h1>Hello</h1>");
-// });
-
+const app = express();
 app.use(express.json());
-
-// app.use(cors());
-
-app.options("*", cors());
 
 app.use(
     cors({
@@ -32,14 +23,16 @@ app.use(
     })
 );
 
-mongoose
-    .connect(process.env.DB_URI)
-    .then(() => {
-        console.log("Connected to DB");
-    })
-    .catch((error) => {
-        console.log(error);
-    });
+const connectDatabase = async () => {
+    try {
+        mongoose.connect(process.env.DB_URI, { serverSelectionTimeoutMS: 30000 });
+        console.log("Connected to database");
+    } catch (error) {
+        console.log("Error Connecting Database", error);
+    }
+};
+
+connectDatabase();
 
 app.use("/api/users", userRoutes);
 app.use("/api/movies", moviesRoutes);
