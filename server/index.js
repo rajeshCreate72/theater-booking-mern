@@ -49,7 +49,7 @@ app.use("/api/shows", showsRoutes);
 app.use("/api/bookings", bookingRoutes);
 
 const PORT = process.env.PORT || 8080;
-if (process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV === "production") {
     app.listen(PORT, () => {
         console.log("Server is running at 8080");
     });
